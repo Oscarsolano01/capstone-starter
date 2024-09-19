@@ -4,6 +4,8 @@ import Users from "./pages/Users";
 import Businesses from "./pages/Businesses";
 import CreateReview from "./pages/CreateReview";
 import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   const [auth, setAuth] = useState({});
@@ -62,6 +64,8 @@ function App() {
         <Link to="/">Home</Link>
         <Link to="/businesses">Businesses ({businesses.length})</Link>
         <Link to="/users">Users ({users.length})</Link>
+        <Link to="/login">Login</Link>
+        <Link to="/register">Register</Link>
         {auth.id ? (
           <Link to="/createReview">Create Review</Link>
         ) : (
@@ -82,6 +86,7 @@ function App() {
             />
           }
         />
+        <Route path="/login" element />
         <Route
           path="/businesses"
           element={<Businesses businesses={businesses} />}
