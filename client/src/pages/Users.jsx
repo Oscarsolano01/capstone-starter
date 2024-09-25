@@ -28,15 +28,11 @@ const Users = ({ users }) => {
     <div>
       <h1>user list {usersData.length} users!</h1>
 
-      {usersData?.map(function (data) {
+      {usersData?.map((data) => {
         return (
-          <>
-            <div className="main-layout">
-              <div className="user-card" key={data}>
-                Name: {data.username}
-              </div>
-            </div>
-          </>
+          <div className="main-layout" key={data.id}>
+            <div className="user-card">Name: {data.username}</div>
+          </div>
         );
       })}
     </div>
