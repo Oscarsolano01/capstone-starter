@@ -9,7 +9,7 @@ const Users = ({ users }) => {
     const fetchUsers = async () => {
       try {
         const response = await fetch(`http://localhost:3000/api/users`);
-        console.log("response");
+
         if (!response.ok) {
           throw new Error("Failed to fetch users");
         }
@@ -25,9 +25,21 @@ const Users = ({ users }) => {
     fetchUsers();
   }, []);
   return (
-    <>
-      <h1>User List {usersData.length}</h1>;
-    </>
+    <div>
+      <h1>user list {usersData.length} users!</h1>
+
+      {usersData?.map(function (data) {
+        return (
+          <>
+            <div className="main-layout">
+              <div className="user-card" key={data}>
+                Name: {data.username}
+              </div>
+            </div>
+          </>
+        );
+      })}
+    </div>
   );
 };
 
