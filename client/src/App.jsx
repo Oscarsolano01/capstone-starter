@@ -7,14 +7,56 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
-function App() {
+function App({ businessData = [] }) {
   const [auth, setAuth] = useState({});
   const [users, setUsers] = useState([]);
   const [businesses, setBusinesses] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     attemptLoginWithToken();
+  }, []);
+
+  useEffect(() => {
+    const fetchBusinesses = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/businesses`);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch businesses");
+        }
+        const data = await response.json();
+        console.log(data);
+        setBusinesses(data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+    fetchBusinesses();
+  }, []);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/users`);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch users");
+        }
+        const data = await response.json();
+        console.log(data);
+        setUsers(data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+    fetchUsers();
   }, []);
 
   const attemptLoginWithToken = async () => {
@@ -62,7 +104,10 @@ function App() {
       <h1>Acme Business Reviews</h1>
       <nav>
         <Link to="/">Home</Link>
-        <Link to="/businesses">Businesses ({businesses.length})</Link>
+        <Link to="/businesses">
+          Businesses ({businesses ? businesses.length : 0})
+        </Link>
+
         <Link to="/users">Users ({users.length})</Link>
         <Link to="/login">Login</Link>
         <Link to="/register">Register</Link>
@@ -86,8 +131,14 @@ function App() {
             />
           }
         />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route
+          path="/login"
+          element={<Login authAction={authAction} auth={auth} />}
+        />
+        <Route
+          path="/register"
+          element={<Register authAuction={authAction} auth={auth} />}
+        />
         <Route
           path="/businesses"
           element={<Businesses businesses={businesses} />}

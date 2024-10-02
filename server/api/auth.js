@@ -33,4 +33,6 @@ router.get("/me", isLoggedIn, (req, res, next) => {
   }
 });
 
+router;
+
 module.exports = router;
