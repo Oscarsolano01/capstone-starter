@@ -143,7 +143,9 @@ function App({ businessData = [] }) {
           path="/businesses"
           element={<Businesses businesses={businesses} />}
         />
+        <Route path="/business/:id" element={<CreateReview />} />
         <Route path="/users" element={<Users users={users} />} />
+
         {!!auth.id && <Route path="/createReview" element={<CreateReview />} />}
       </Routes>
     </>
