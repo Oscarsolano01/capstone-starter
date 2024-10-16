@@ -1,26 +1,33 @@
 const { client } = require("./client");
 
 const createReviews = async ({
-  businessName,
-  category,
-  description,
-  businessImage,
+  busName,
+  rating,
+  review,
+  userID,
+  businessID,
 }) => {
   try {
-    const SQL = `INSERT INTO businesses(businessName, category, description, businessImage) VALUES($1, $2, $3, $4) RETURNING *`;
+    const SQL = `INSERT INTO reviews(rating, review, userID, businessID, busName) VALUES($1, $2, $3, $4) RETURNING *`;
     const {
-      rows: [business],
-    } = await client.query(SQL, [
-      businessName,
-      category,
-      description,
-      businessImage ||
-        "https://static.wixstatic.com/media/40bb67_32a45a704190429eb53a3f3cd1336cb8~mv2.jpg/v1/fill/w_528,h_420,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/40bb67_32a45a704190429eb53a3f3cd1336cb8~mv2.jpg",
-    ]);
-    return business;
+      rows: [result],
+    } = await client.query(SQL, [rating, review, userID, businessID]);
+    return result;
   } catch (err) {
-    console.log(err);
+    throw err;
   }
 };
+const fetchReviews = async () => {
+  const SQL = `
+    SELECT * FROM reviews;
+  `;
+  const response = await client.query(SQL);
+  return response.rows;
+};
 
-module.exports = { createReviews };
+const fetchSingleBusinessReviews = async (id) => {
+  const SQL = `SELECT * FROM reviews WHERE businessID=$1;`;
+  const response = await client.query(SQL, [id]);
+  return response.rows;
+};
+module.exports = { createReviews, fetchReviews, fetchSingleBusinessReviews };

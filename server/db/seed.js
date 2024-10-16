@@ -279,7 +279,6 @@ const createTables = async () => {
     id SERIAL PRIMARY KEY,
     userID UUID REFERENCES users(id),
     businessID INT REFERENCES businesses(id),
-    raitng INT REFERENCES businesses(id),
     rating INT NOT NULL,
     review TEXT,
     createdAt TIMESTAMP DEFAULT now() 
