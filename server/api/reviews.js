@@ -26,34 +26,20 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// POST /api/reviews
-// router.post("/reviews", async (req, res) => {
-//   const { userId, businessId, rating, review } = req.body;
-
-//   if (!userId || !businessId || !rating || !review) {
-//     return res.status(400).json({ error: "All fields are required." });
-//   }
-
-//   try {
-//     const newReview = await Review.create({
-//       userId,
-//       businessId,
-//       rating,
-//       review,
-//     });
-//     res.status(201).json(newReview);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ error: "Failed to submit review." });
-//   }
-// });
-
 router.get("/business/:businessId", async (req, res, next) => {
   let businessId = req.params.businessId;
   try {
     res.send(await fetchSingleBusinessReviews(businessId));
   } catch (ex) {
     next(ex);
+  }
+});
+
+router.delete("/business/:businessId", async (req, res) => {
+  try {
+    const reviewId = req.params.id;
+  } catch (error) {
+    console.log(error);
   }
 });
 

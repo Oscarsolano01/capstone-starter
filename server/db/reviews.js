@@ -1,14 +1,8 @@
 const { client } = require("./client");
 
-const createReviews = async ({
-  busName,
-  rating,
-  review,
-  userID,
-  businessID,
-}) => {
+const createReviews = async ({ rating, review, userID, businessID }) => {
   try {
-    const SQL = `INSERT INTO reviews(rating, review, userID, businessID, busName) VALUES($1, $2, $3, $4) RETURNING *`;
+    const SQL = `INSERT INTO reviews(rating, review, userID, businessID) VALUES($1, $2, $3, $4) RETURNING *`;
     const {
       rows: [result],
     } = await client.query(SQL, [rating, review, userID, businessID]);
@@ -30,4 +24,22 @@ const fetchSingleBusinessReviews = async (id) => {
   const response = await client.query(SQL, [id]);
   return response.rows;
 };
-module.exports = { createReviews, fetchReviews, fetchSingleBusinessReviews };
+
+const deleteReview = async (id) => {
+  try {
+    const SQL = `DELETE FROM review WHERE id=$1 RETURNING *`;
+    const {
+      rows: [result],
+    } = await client.query(SQL, [id]);
+    console.log(result);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
+module.exports = {
+  createReviews,
+  fetchReviews,
+  fetchSingleBusinessReviews,
+  deleteReview,
+};

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 function Businesses({ businesses }) {
   return (
     <div className="business-list-container">
-      <h1> Business List {businesses.length}</h1>
+      <h1>{businesses.length} Businesses</h1>
       <div className="business-list">
         {businesses?.map((business) => {
           return (

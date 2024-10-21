@@ -40,7 +40,14 @@ function SingleBusiness() {
         <h2>About Us: {business.description} </h2>
         <img src={business.busimage} alt={business.busname} />
       </div>
-      <div className="business-reviews"></div>
+      {reviews?.map(function (review) {
+        return (
+          <div className="business-reviews" key={review.id}>
+            <h2 className="reviews">Reviews: {review.review}</h2>
+            <h2 className="rating">rating: {review.rating}</h2>
+          </div>
+        );
+      })}
     </div>
   );
 }

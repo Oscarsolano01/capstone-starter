@@ -61,6 +61,26 @@ function App({ businessData = [] }) {
     fetchUsers();
   }, []);
 
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/reviews`);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch reviews");
+        }
+        const data = await response.json();
+        console.log(data);
+        setReviews(data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+    fetchReviews();
+  }, []);
+
   const attemptLoginWithToken = async () => {
     const token = window.localStorage.getItem("token");
     if (token) {
@@ -111,7 +131,7 @@ function App({ businessData = [] }) {
         </Link>
 
         <Link to="/users">Users ({users.length})</Link>
-        <Link to="/reviews">Reviews </Link>
+        <Link to="/reviews">Reviews ({reviews.length})</Link>
         <Link to="/login">Login</Link>
         <Link to="/register">Register</Link>
         {auth.id ? (
@@ -144,7 +164,9 @@ function App({ businessData = [] }) {
         />
         <Route
           path="/reviews"
-          element={<Reviews authAction={authAction} auth={auth} />}
+          element={
+            <Reviews reviews={reviews} authAction={authAction} auth={auth} />
+          }
         />
         <Route
           path="/businesses"

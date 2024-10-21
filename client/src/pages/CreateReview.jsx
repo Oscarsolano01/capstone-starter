@@ -48,7 +48,7 @@ function CreateReview({ businesses, auth }) {
   return (
     <div>
       <h1>Create a Review</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+
       <form onSubmit={handleSubmit}>
         <label>
           Business:

@@ -5,8 +5,7 @@ const Home = ({ auth, authAction, logout, businesses, users, reviews }) => {
     <div>
       <h1>Home</h1>
       <p>
-        Display some interesting information about our {businesses.length}{" "}
-        Businesses
+        Take a look at the {businesses.length} Businesses we have reviewed
         <br />
         Display some interesting information about our {users.length} Users
         <br />
