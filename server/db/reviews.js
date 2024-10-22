@@ -20,14 +20,24 @@ const fetchReviews = async () => {
 };
 
 const fetchSingleBusinessReviews = async (id) => {
-  const SQL = `SELECT * FROM reviews WHERE businessID=$1;`;
+  const SQL = `
+    SELECT 
+      reviews.rating, 
+      reviews.id, 
+      reviews.userid, 
+      reviews.review,
+      reviews.businessid,
+      users.username
+    FROM reviews
+    JOIN users ON reviews.userid = users.id
+    WHERE businessid=$1;`;
   const response = await client.query(SQL, [id]);
   return response.rows;
 };
 
 const deleteReview = async (id) => {
   try {
-    const SQL = `DELETE FROM review WHERE id=$1 RETURNING *`;
+    const SQL = `DELETE FROM reviews WHERE id=$1 RETURNING *`;
     const {
       rows: [result],
     } = await client.query(SQL, [id]);

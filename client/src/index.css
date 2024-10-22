@@ -75,6 +75,12 @@ a.business-card {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
+.single-business-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
 .business-name {
   font-size: 1.5em;
   margin-bottom: 10px;
@@ -86,7 +92,7 @@ a.business-card {
   color: #666;
 }
 
-.reviews {
+.review-card {
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -95,5 +101,14 @@ a.business-card {
   transition: transform 0.3s ease;
 }
 
-.reviews:hover {
+.rating {
+  background-color: #121614;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: #d30e1f;
+  font-weight: bold;
+  font-size: 1.2em;
+  display: flex;
+  flex-direction: column;
+  margin: 40px 0;
 }

@@ -5,6 +5,8 @@ const {
   fetchReviews,
   createReviews,
   fetchSingleBusinessReviews,
+  fetchUsers,
+  deleteReview,
 } = require("../db");
 
 router.get("/", async (req, res, next) => {
@@ -35,9 +37,11 @@ router.get("/business/:businessId", async (req, res, next) => {
   }
 });
 
-router.delete("/business/:businessId", async (req, res) => {
+router.delete("/:reviewId", async (req, res) => {
   try {
-    const reviewId = req.params.id;
+    const reviewId = req.params.reviewId;
+    const result = await deleteReview(reviewId);
+    res.sendStatus(204);
   } catch (error) {
     console.log(error);
   }
