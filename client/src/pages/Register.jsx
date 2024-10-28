@@ -4,11 +4,13 @@ const Register = ({ authAuction, auth }) => {
   return (
     <div className="register-page">
       <h2>Register</h2>
-      {!auth.id ? (
-        <>
-          <AuthForm authAction={authAuction} mode="register" />
-        </>
-      ) : null}
+      <div>
+        {!auth.id ? (
+          <>
+            <AuthForm authAction={authAuction} mode="register" />
+          </>
+        ) : null}
+      </div>
     </div>
   );
 };

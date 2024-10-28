@@ -1,13 +1,26 @@
 import { useState, useEffect } from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Users from "./pages/Users";
 import Businesses from "./pages/Businesses";
 import CreateReview from "./pages/CreateReview";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Reviews from "./pages/Reviews";
 import SingleBusiness from "./pages/SingleBusiness";
+import NavBar from "./components/AuthForm/NavBar";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { red } from "@mui/material/colors";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: red[500],
+    },
+    secondary: {
+      main: "#9c27b0",
+    },
+  },
+});
 
 function App({ businessData = [] }) {
   const [auth, setAuth] = useState({});
@@ -122,38 +135,23 @@ function App({ businessData = [] }) {
   };
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <h1>Windy City Reviews</h1>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/businesses">
-          Businesses ({businesses ? businesses.length : 0})
-        </Link>
-
-        <Link to="/users">Users ({users.length})</Link>
-        <Link to="/reviews">Reviews ({reviews.length})</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/register">Register</Link>
-        {auth.id ? (
-          <Link to="/createReview">Create Review</Link>
-        ) : (
-          <Link to="/">Register/Login</Link>
-        )}
-      </nav>
+      <NavBar businesses={businesses} auth={auth} users={users} />
       {auth.id && <button onClick={logout}>Logout {auth.username}</button>}
       <Routes>
         <Route
-          path="/"
+          path="*"
           element={
             <Home
               authAction={authAction}
               auth={auth}
               businesses={businesses}
               users={users}
-              reviews={reviews}
             />
           }
         />
+
         <Route
           path="/login"
           element={<Login authAction={authAction} auth={auth} />}
@@ -162,19 +160,18 @@ function App({ businessData = [] }) {
           path="/register"
           element={<Register authAuction={authAction} auth={auth} />}
         />
-        <Route
+        {/* <Route
           path="/reviews"
           element={
             <Reviews reviews={reviews} authAction={authAction} auth={auth} />
           }
-        />
+        /> */}
         <Route
           path="/businesses"
           element={<Businesses businesses={businesses} />}
         />
         <Route path="/business/:id" element={<SingleBusiness />} />
         <Route path="/users" element={<Users users={users} />} />
-
         {!!auth.id && (
           <Route
             path="/createReview"
@@ -188,7 +185,7 @@ function App({ businessData = [] }) {
           />
         )}
       </Routes>
-    </>
+    </ThemeProvider>
   );
 }
 

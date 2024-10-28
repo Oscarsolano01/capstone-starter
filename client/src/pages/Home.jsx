@@ -1,16 +1,18 @@
 import AuthForm from "../components/AuthForm/AuthForm";
 
-const Home = ({ auth, authAction, logout, businesses, users, reviews }) => {
+const Home = ({ auth, authAction, logout, businesses, users }) => {
   return (
     <div>
-      <h1>Home</h1>
-      <p>
-        Take a look at the {businesses.length} Businesses we have reviewed
-        <br />
-        Display some interesting information about our {users.length} Users
-        <br />
-        Display some interesting information about our {reviews.length} Reviews
-      </p>
+      <div className="home-page">
+        <div className="home-overlay"></div>
+        <div className="home-title-container">
+          <h1 className="home-title">Welcome to Windy City Reviews</h1>
+          <p className="home-subtitle">
+            Discover and review the best businesses around you
+          </p>
+        </div>
+      </div>
+
       {!auth.id ? (
         <>
           <AuthForm authAction={authAction} mode="login" />

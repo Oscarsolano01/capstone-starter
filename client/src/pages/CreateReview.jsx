@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Rating from "@mui/material/Rating";
 
 function CreateReview({ businesses, auth }) {
   const [review, setReview] = useState("");
@@ -66,10 +67,8 @@ function CreateReview({ businesses, auth }) {
         <br />
         <label>
           Rating:
-          <input
-            type="number"
-            min="1"
-            max="5"
+          <Rating
+            name="simple-controlled"
             value={rating}
             onChange={(e) => setRating(e.target.value)}
           />

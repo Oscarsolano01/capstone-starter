@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 function Users({ users }) {
   return (
     <div>
-      <h1>user list {users.length} users!</h1>
+      <h1>{users.length} users!</h1>
 
       {users.map((data) => {
         return (
