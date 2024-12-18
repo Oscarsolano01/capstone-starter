@@ -4,6 +4,7 @@
   "description": "- this is a working application which allows users to login and to register",
   "main": "index.js",
   "scripts": {
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "start:dev": "nodemon server",
     "seed": "node ./server/db/seed.js"
