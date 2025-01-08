@@ -43,7 +43,6 @@ function App({ businessData = [] }) {
           throw new Error("Failed to fetch businesses");
         }
         const data = await response.json();
-        console.log(data);
         setBusinesses(data);
         setLoading(false);
       } catch (err) {
@@ -63,7 +62,6 @@ function App({ businessData = [] }) {
           throw new Error("Failed to fetch users");
         }
         const data = await response.json();
-        console.log(data);
         setUsers(data);
         setLoading(false);
       } catch (err) {
@@ -83,7 +81,6 @@ function App({ businessData = [] }) {
           throw new Error("Failed to fetch reviews");
         }
         const data = await response.json();
-        console.log(data);
         setReviews(data);
         setLoading(false);
       } catch (err) {
@@ -160,12 +157,7 @@ function App({ businessData = [] }) {
           path="/register"
           element={<Register authAuction={authAction} auth={auth} />}
         />
-        {/* <Route
-          path="/reviews"
-          element={
-            <Reviews reviews={reviews} authAction={authAction} auth={auth} />
-          }
-        /> */}
+
         <Route
           path="/businesses"
           element={<Businesses businesses={businesses} />}
